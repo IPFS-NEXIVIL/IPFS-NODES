@@ -1,0 +1,177 @@
+
+> @user/ipfs-nodes@0.1.0 start
+> node-scripts start
+
+[
+  {
+    test: [ /\.avif$/ ],
+    type: 'asset',
+    mimetype: 'image/avif',
+    parser: { dataUrlCondition: [Object] }
+  },
+  {
+    test: [ /\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/ ],
+    type: 'asset',
+    parser: { dataUrlCondition: [Object] }
+  },
+  {
+    test: /\.svg$/,
+    use: [ [Object], [Object] ],
+    issuer: { and: [Array] }
+  },
+  {
+    test: /\.(js|mjs)$/,
+    exclude: [ /node_modules/, /@babel(?:\/|\\{1,2})runtime/ ],
+    loader: 'C:\\VSProject\\DesignExpress\\xnode\\ipfs-nodes\\node_modules\\babel-loader\\lib\\index.js',
+    options: {
+      babelrc: false,
+      configFile: false,
+      compact: false,
+      presets: [Array],
+      cacheDirectory: true,
+      cacheCompression: false,
+      cacheIdentifier: 'development:babel-plugin-named-asset-import@0.3.8:babel-preset-react-app@10.0.1:react-dev-utils@12.0.1:react-scripts@',
+      sourceMaps: false,
+      inputSourceMap: false
+    }
+  },
+  {
+    test: /\.css$/,
+    exclude: /\.module\.css$/,
+    use: [
+      'C:\\VSProject\\DesignExpress\\xnode\\ipfs-nodes\\node_modules\\style-loader\\dist\\cjs.js',
+      [Object],
+      [Object]
+    ],
+    sideEffects: true
+  },
+  {
+    test: /\.module\.css$/,
+    use: [
+      'C:\\VSProject\\DesignExpress\\xnode\\ipfs-nodes\\node_modules\\style-loader\\dist\\cjs.js',
+      [Object],
+      [Object]
+    ]
+  },
+  {
+    test: /\.(scss|sass)$/,
+    exclude: /\.module\.(scss|sass)$/,
+    use: [
+      'C:\\VSProject\\DesignExpress\\xnode\\ipfs-nodes\\node_modules\\style-loader\\dist\\cjs.js',
+      [Object],
+      [Object],
+      [Object],
+      [Object]
+    ],
+    sideEffects: true
+  },
+  {
+    test: /\.module\.(scss|sass)$/,
+    use: [
+      'C:\\VSProject\\DesignExpress\\xnode\\ipfs-nodes\\node_modules\\style-loader\\dist\\cjs.js',
+      [Object],
+      [Object],
+      [Object],
+      [Object]
+    ]
+  },
+  {
+    test: [ /\.json$/, /\.wasm$/ ],
+    resourceQuery: /url/,
+    type: 'asset/resource'
+  },
+  {
+    exclude: [
+      /^$/,
+      /\.(js|mjs|cjs|jsx|ts|tsx)$/,
+      /\.html$/,
+      /\.json$/,
+      /\.wasm$/
+    ],
+    type: 'asset/resource',
+    dependency: { not: [Array] }
+  },
+  {
+    test: /\.(cjs)$/,
+    exclude: /@babel(?:\/|\\{1,2})runtime/,
+    loader: 'C:\\VSProject\\DesignExpress\\xnode\\ipfs-nodes\\node_modules\\babel-loader\\lib\\index.js',
+    options: {
+      babelrc: false,
+      configFile: false,
+      compact: false,
+      presets: [Array],
+      cacheDirectory: true,
+      cacheCompression: false,
+      sourceMaps: true,
+      inputSourceMap: true
+    }
+  }
+]
+Starting the development server...
+
+Compiled successfully!
+
+You can now view @user/ipfs-nodes in the browser.
+
+  Local:            http://localhost:3001
+  On Your Network:  http://192.168.1.38:3001
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+assets by path [1m[32m*.js[39m[22m 9.89 MiB
+  asset [1m[32mmain.js[39m[22m 9.84 MiB [1m[32m[emitted][39m[22m (name: main)
+  asset [1m[32mruntime.js[39m[22m 47.7 KiB [1m[32m[emitted][39m[22m (name: runtime)
+assets by path [1m[32m*.json[39m[22m 306 bytes
+  asset [1m[32mmanifest.json[39m[22m 257 bytes [1m[32m[emitted][39m[22m
+  asset [1m[32mstats.json[39m[22m 49 bytes [1m[32m[emitted][39m[22m
+Entrypoint [1mmain[39m[22m 9.89 MiB = [1m[32mruntime.js[39m[22m 47.7 KiB [1m[32mmain.js[39m[22m 9.84 MiB
+runtime modules 31.6 KiB 15 modules
+modules by path [1m./node_modules/[39m[22m 3.17 MiB 814 modules
+modules by path [1m./src/[39m[22m 29.3 KiB
+  modules by path [1m./src/nodes/*.js[39m[22m 20.8 KiB
+    [1m./src/nodes/+contstructor.js[39m[22m 2.43 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+    [1m./src/nodes/+dag_cbor.js[39m[22m 1.73 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+    + 7 modules
+  modules by path [1m./src/*.js[39m[22m 8.54 KiB
+    [1m./src/index.js[39m[22m 1.04 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+    [1m./src/main.js[39m[22m 7.51 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+[1mexternal "LiteGraph"[39m[22m 42 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+[1mexternal "@design-express/fabrica"[39m[22m 42 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+[1mbuffer (ignored)[39m[22m 15 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+[1mexternal "crypto"[39m[22m 42 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+[1mcluster (ignored)[39m[22m 15 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+webpack 5.85.0 compiled [1m[32msuccessfully[39m[22m in 7285 ms
+Compiled successfully!
+assets by status 9.89 MiB [1m[32m[cached][39m[22m 2 assets
+assets by path [1m[32m.[39m[22m 306 bytes
+  asset [1m[32mmanifest.json[39m[22m 257 bytes [1m[32m[emitted][39m[22m
+  asset [1m[32mstats.json[39m[22m 49 bytes [1m[32m[emitted][39m[22m
+Entrypoint [1mmain[39m[22m 9.89 MiB = [1m[32mruntime.js[39m[22m 47.7 KiB [1m[32mmain.js[39m[22m 9.84 MiB
+cached modules 3.19 MiB (javascript) 31.6 KiB (runtime) [1m[32m[cached][39m[22m 844 modules
+[1m./src/main.js[39m[22m 7.51 KiB [1m[33m[built][39m[22m
+webpack 5.85.0 compiled [1m[32msuccessfully[39m[22m in 725 ms
+Compiling...
+Compiled successfully!
+assets by path [1m[32m*.js[39m[22m 10 MiB
+  assets by chunk 9.97 MiB (name: main)
+    asset [1m[32mmain.js[39m[22m 9.83 MiB [1m[32m[emitted][39m[22m (name: main)
+    asset [1m[32mmain.759f2c533b5809864083.hot-update.js[39m[22m 142 KiB [1m[32m[emitted][39m[22m [1m[32m[immutable][39m[22m [1m[32m[hmr][39m[22m (name: main)
+  assets by chunk 48.5 KiB (name: runtime)
+    asset [1m[32mruntime.js[39m[22m 47.7 KiB [1m[32m[emitted][39m[22m (name: runtime)
+    asset [1m[32mruntime.759f2c533b5809864083.hot-update.js[39m[22m 860 bytes [1m[32m[emitted][39m[22m [1m[32m[immutable][39m[22m [1m[32m[hmr][39m[22m (name: runtime)
+assets by path [1m[32m*.json[39m[22m 392 bytes
+  asset [1m[32mmanifest.json[39m[22m 257 bytes [1m[32m[emitted][39m[22m
+  asset [1m[32mstats.json[39m[22m 97 bytes [1m[32m[emitted][39m[22m
+  asset [1m[32mruntime.759f2c533b5809864083.hot-update.json[39m[22m 38 bytes [1m[32m[emitted][39m[22m [1m[32m[immutable][39m[22m [1m[32m[hmr][39m[22m
+Entrypoint [1mmain[39m[22m 10 MiB = [1m[32mruntime.js[39m[22m 47.7 KiB [1m[32mruntime.759f2c533b5809864083.hot-update.js[39m[22m 860 bytes [1m[32mmain.js[39m[22m 9.83 MiB [1m[32mmain.759f2c533b5809864083.hot-update.js[39m[22m 142 KiB
+cached modules 2.34 MiB [1m[32m[cached][39m[22m 658 modules
+runtime modules 31.6 KiB 15 modules
+javascript modules 874 KiB
+  modules by path [1m./node_modules/[39m[22m 861 KiB 169 modules
+  modules by path [1m./src/[39m[22m 12.9 KiB
+    [1m./src/main.js[39m[22m 7.51 KiB [1m[33m[built][39m[22m
+    [1m./src/nodes/+contstructor.js[39m[22m 2.48 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+    [1m./src/nodes/bootstraps.js[39m[22m 2.93 KiB [1m[33m[code generated][39m[22m
+webpack 5.85.0 compiled [1m[32msuccessfully[39m[22m in 1580 ms
+Terminate batch job (Y/N)? 
