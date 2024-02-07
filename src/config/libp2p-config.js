@@ -1,52 +1,41 @@
 // import { gossipsub } from "@chainsafe/libp2p-gossipsub";
 import { noise } from "@chainsafe/libp2p-noise";
 import { yamux } from "@chainsafe/libp2p-yamux";
+import { createDelegatedRoutingV1HttpApiClient } from "@helia/delegated-routing-v1-http-api-client";
+import { autoNAT } from "@libp2p/autonat";
 import { bootstrap } from "@libp2p/bootstrap";
-import { ipniContentRouting } from "@libp2p/ipni-content-routing";
+import { circuitRelayTransport } from "@libp2p/circuit-relay-v2";
+import { dcutr } from "@libp2p/dcutr";
+import { identify } from "@libp2p/identify";
 import { kadDHT } from "@libp2p/kad-dht";
+import { keychain } from "@libp2p/keychain";
 import { mplex } from "@libp2p/mplex";
+import { ping } from "@libp2p/ping";
 import { webRTC, webRTCDirect } from "@libp2p/webrtc";
 import { webSockets } from "@libp2p/websockets";
 import { all } from "@libp2p/websockets/filters";
+// import { webTransport } from "@libp2p/webtransport";
 import { ipnsSelector } from "ipns/selector";
 import { ipnsValidator } from "ipns/validator";
-import { autoNATService } from "libp2p/autonat";
-import { circuitRelayTransport } from "libp2p/circuit-relay";
-import { identifyService } from "libp2p/identify";
-// import { webTransport } from "@libp2p/webtransport";
-import { webRTCStar } from "@libp2p/webrtc-star";
+import * as libp2pInfo from "libp2p/version";
+// import { bootstrapConfig } from "./bootstrappers.js";
 
-// import { delegatedContentRouting } from "@libp2p/delegated-content-routing";
-// import { create as createKuboRpcClient } from "kubo-rpc-client";
-// import { pubsubPeerDiscovery } from "@libp2p/pubsub-peer-discovery";
-import { pingService } from "libp2p/ping";
-const star = webRTCStar();
+const version = "2.0.0";
+const name = "helia";
 
-export function libp2pDefaults(addrs, services) {
+export function libp2pDefaults(addrs, services, peerId) {
   return {
+    peerId,
     addresses: {
-      listen: [
-        "/webrtc",
-        "/wss",
-        "/ws"
-        // "/webtransport",
-        // "/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star",
-        // "/dns4/wrtc-star2.sjc.dwebops.pub/tcp/443/wss/p2p-webrtc-star",
-        // "/dns4/webrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star",
-        // "/dns4/libp2p-rdv.vps.revolunet.com/tcp/443/wss/p2p-webrtc-star",
-        // "/dns4/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star",
-        // "/dns6/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star",
-      ],
+      listen: ["/webrtc"],
     },
     transports: [
-      star.transport,
-      // webTransport({ maxInboundStreams: 210 }),
-      webSockets({ filter: all }),
-      webRTC(),
-      webRTCDirect(),
       circuitRelayTransport({
         discoverRelays: 3,
       }),
+      webRTC(),
+      webRTCDirect(),
+      webSockets({ filter: all }),
     ],
     streamMuxers: [yamux(), mplex()],
     connectionGater: {
@@ -80,16 +69,16 @@ export function libp2pDefaults(addrs, services) {
       }),
       //   pubsubPeerDiscovery({ interval: 10000 }),
     ],
-    contentRouters: [
-      ipniContentRouting("https://cid.contact"),
-      //   delegatedContentRouting(
-      //     createKuboRpcClient({
-      //       protocol: "https",
-      //       port: 443,
-      //       host: "node0.delegate.ipfs.io",
-      //     })
-      //   ),
-    ],
+    // contentRouters: [
+    //   ipniContentRouting("https://cid.contact"),
+    //   //   delegatedContentRouting(
+    //   //     createKuboRpcClient({
+    //   //       protocol: "https",
+    //   //       port: 443,
+    //   //       host: "node0.delegate.ipfs.io",
+    //   //     })
+    //   //   ),
+    // ],
     relay: {
       enabled: true,
       hop: {
@@ -98,8 +87,15 @@ export function libp2pDefaults(addrs, services) {
     },
     services: {
       ...services,
-      identify: identifyService(),
-      autoNAT: autoNATService(),
+      identify: identify({
+        agentVersion: `${name}/${version} ${libp2pInfo.name}/${libp2pInfo.version} UserAgent=${window.navigator.userAgent}`,
+      }),
+      autoNAT: autoNAT(),
+      keychain: keychain(),
+      dcutr: dcutr(),
+      delegatedRouting: () =>
+        createDelegatedRoutingV1HttpApiClient("https://delegated-ipfs.dev"),
+
       //   pubsub: gossipsub({
       //     enabled: true,
       //     allowPublishToZeroPeers: true,
@@ -117,7 +113,7 @@ export function libp2pDefaults(addrs, services) {
           ipns: ipnsSelector,
         },
       }),
-      ping: pingService(),
+      ping: ping(),
     },
   };
 }

@@ -8,13 +8,14 @@
     "build"
   ],
   "dependencies": {
-    "@design-express/node-scripts": "1.1.7",
-    "@helia/unixfs": "^1.4.2",
+    "@design-express/node-scripts": "1.1.9",
+    "@helia/unixfs": "^2.0.1",
     "@libp2p/ipni-content-routing": "^2.0.2",
-    "@libp2p/pubsub-peer-discovery": "^9.0.2",
-    "@libp2p/webrtc-star": "^7.0.0",
+    "@libp2p/pubsub-peer-discovery": "^10.0.2",
+    "blockstore-idb": "^1.1.7",
     "browserify-zlib": "^0.2.0",
-    "helia": "^2.1.0"
+    "datastore-idb": "^2.1.7",
+    "helia": "^3.0.1"
   },
   "scripts": {
     "start": "node-scripts start",

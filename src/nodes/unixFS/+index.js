@@ -44,7 +44,8 @@ export class Add extends Pure {
       "combo",
       "operation",
       this.properties.operation,
-      "operation"
+      "operation",
+      { values: Add["@operation"].values }
     );
   }
 
@@ -52,7 +53,7 @@ export class Add extends Pure {
     const _fs = this.getInputData(1);
     const _data = this.getInputData(2);
     const result = await _fs[Add.#mapper[this.properties.operation]](_data);
-    this.setOutputData(1, result);
+    this.setOutputData(1, result.toString());
   }
 }
 
@@ -72,11 +73,9 @@ export class cat extends Pure {
   async onExecute() {
     const _fs = this.getInputData(1);
     const _cid = this.getInputData(2);
-    let _res = "";
+    let _res = Buffer.from(new ArrayBuffer());
     for await (let chunk of _fs.cat(_cid)) {
-      _res += cat.#decoder.decode(chunk, {
-        stream: true,
-      });
+      _res = Buffer.concat([_res, chunk]);
     }
     this.setOutputData(1, _res);
   }
