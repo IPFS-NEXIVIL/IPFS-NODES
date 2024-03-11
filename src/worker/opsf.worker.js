@@ -44,5 +44,11 @@ self.onmessage = ({ data: _data }) => {
     read();
   } else if (type === "write") {
     write(data, privKey);
+  } else if (type === "close") {
+    _accessHandle.then(([accessHandle, privateAccessHandle]) => {
+      accessHandle.close();
+      privateAccessHandle.close();
+      self.close();
+    });
   }
 };

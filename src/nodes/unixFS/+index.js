@@ -74,10 +74,14 @@ export class cat extends Pure {
     const _fs = this.getInputData(1);
     const _cid = this.getInputData(2);
     let _res = Buffer.from(new ArrayBuffer());
-    for await (let chunk of _fs.cat(_cid)) {
-      _res = Buffer.concat([_res, chunk]);
+    try {
+      for await (let chunk of _fs.cat(_cid)) {
+        _res = Buffer.concat([_res, chunk]);
+      }
+      this.setOutputData(1, _res);
+    } catch (e) {
+      this.setOutputData(1, undefined);
     }
-    this.setOutputData(1, _res);
   }
 }
 

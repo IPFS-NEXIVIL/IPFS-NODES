@@ -124,7 +124,7 @@ export class subscribe extends ImPure {
         `isBroad: ${this.properties.isBroadcast}\nthis: ${this.cid}\nfrom: ${_parsedData.id}\nfilterids:`,
         this.properties.filterids
       );
-      if (this.properties.isBroadcast || this.cid !== _parsedData.id) return;
+      if (!this.properties.isBroadcast && this.cid !== _parsedData.id) return;
       if (
         this.properties.filterids.length > 0 &&
         this.properties.filterids.indexOf(e.detail.from?.toString()) < 0

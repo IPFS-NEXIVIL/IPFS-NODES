@@ -10,10 +10,6 @@ export class peerId extends Pure {
 
   constructor() {
     super();
-    this.worker = new fileWorker();
-    this.worker.onmessage = (v) => {
-      console.log(v);
-    };
     // console.log(this.worker)
     this.addOutput("peerid", "ipfs::peerid,object");
   }
@@ -22,12 +18,16 @@ export class peerId extends Pure {
   }
   async onExecute() {
     // console.log(this.worker.postMessage)
+    if (this.worker === undefined) {
+      this.worker = new fileWorker();
+    }
     const peerInfo = await new Promise((r) => {
       this.worker.onmessage = (v) => {
         r(Array.isArray(v.data) ? [v.data.peerId, v.data.privateKey] : v.data);
       };
       this.worker.postMessage({ type: "read" });
     });
+    this.worker.onmessage = undefined;
 
     if (peerInfo) {
       const _peer = peerIdFromBytes(peerInfo.peerId);
@@ -58,6 +58,7 @@ export class peerId extends Pure {
   }
 
   onRemoved() {
-    this.worker?.terminate();
+    this.worker.postMessage({ type: "close" });
+    this.worker = undefined;
   }
 }
